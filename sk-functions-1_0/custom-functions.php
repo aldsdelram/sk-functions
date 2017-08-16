@@ -4,7 +4,7 @@ Plugin Name: SK Functions
 Plugin URI:
 Description: Adds some shortcodes and functions for custom functionality
 Author: Skubbs
-Version: 1.1
+Version: 1.0
 Author URI:
 Network: true
 */
@@ -104,13 +104,11 @@ Network: true
 	}
 	add_action('init', 'test_code_here');
 
-
-/*************** 5. REUSBALE FUNCTIONS ***************/
+/*************** 5. REUSABLE FUNCTIONS ***************/
 
 /*****---------- 5.1 Word Limiter ----------*****/
 	// https://developer.wordpress.org/reference/functions/wp_trim_words/
 	// use wp_trim_words(content, limit, ending_string)
-
 
 /*****---------- 5.2 Pagination ----------*****/
 	function custom_pagination($numpages = '', $pagerange = '', $paged='') {
@@ -174,6 +172,7 @@ Network: true
 	}
 
 /*****---------- 5.3 Directory Lister ----------*****/
+
 /**------------- 5.3.1 Real Path -------------**/
 	function getDirContents($dir, &$results = array()){
 	    $files = scandir($dir);
@@ -190,6 +189,7 @@ Network: true
 
 	    return $results;
 	}
+
 /**------------- 5.3.2 File Name -------------**/
 	function getDirFiles($dir){
 	    $files = scandir($dir);
@@ -204,12 +204,16 @@ Network: true
 	    return $results;
 	}
 
+/*****---------- 5.4 Strip Dashes ----------*****/
+	function strip_dash_noalpha($string) {
+		$strip_nonalphanumeric = preg_replace("/[^A-Za-z0-9 ]/", '', $string );
+		$strip_dashes =  str_replace(' ' ,'-',$strip_nonalphanumeric);
 
+		return $strip_dashes;
+	}
 
+/*************** 6. AJAX ***************/
 
-// ************************************
-// =AJAX
-// ************************************
 	// function changeProjects($category){
 	// 	$response = [];
 	// 	$response['status'] = false;
@@ -224,15 +228,3 @@ Network: true
 	// }
 	// add_action('wp_ajax_changeProjects', 'changeProjects');
 	// add_action('wp_ajax_nopriv_changeProjects', 'changeProjects');
-
-
-
-// ************************************
-// =STRIP DASHES
-// ************************************
-	function strip_dash_noalpha($string) {
-		$strip_nonalphanumeric = preg_replace("/[^A-Za-z0-9 ]/", '', $string );
-		$strip_dashes =  str_replace(' ' ,'-',$strip_nonalphanumeric);
-
-		return $strip_dashes;
-	}
